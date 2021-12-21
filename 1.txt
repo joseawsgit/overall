@@ -1,6 +1,10 @@
 hi
 
+<<<<<<< HEAD
 hello
+=======
+hello Senior Gurunatha 
+>>>>>>> gurunatha
 
 gurunatha file 
 
