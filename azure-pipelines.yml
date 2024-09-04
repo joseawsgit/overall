@@ -1,0 +1,32 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+  tags:
+    include:
+      - 'v*'
+
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: 'Api/WayFinding.API/*.sln'
+  buildPlatform: 'win-x64'
+  buildConfiguration: 'Release'
+
+steps:
+
+ 
+- script: |
+    cd Api/WayFinding.API
+    dotnet publish WayFinding.API.sln -c release -r $(buildPlatform) --output $(Build.ArtifactStagingDirectory)
+  displayName: 'Publish project'
+
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
